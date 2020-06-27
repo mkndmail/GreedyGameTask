@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">GreedyGame</string>
+    <string name="error_text">%1$s . Click to try again</string>
+</resources>

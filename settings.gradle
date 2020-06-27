@@ -1,0 +1,3 @@
+include ':app:MyImageLoader'
+include ':app'
+rootProject.name = "GreedyGame"
