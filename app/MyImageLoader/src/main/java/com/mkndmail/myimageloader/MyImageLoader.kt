@@ -16,6 +16,10 @@ import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
 import java.util.concurrent.ThreadFactory
 
+/**
+ * Created by Mukund, mkndmail@gmail.com on 27, June, 2020
+ */
+
 class MyImageLoader(context: Context) {
     private val maxCacheSize: Int = (Runtime.getRuntime().maxMemory() / 1024).toInt() / 8
     private val executorService: ExecutorService
@@ -73,33 +77,36 @@ class MyImageLoader(context: Context) {
         //Todo define image download process here
     }
 
-    private fun drawaImageOnView(imageView: ImageView,bitmap: Bitmap?,imageUrl:String){
+    private fun drawaImageOnView(imageView: ImageView, bitmap: Bitmap?, imageUrl: String) {
         val scaledBitmap = scaleBitmapForLoad(bitmap, imageView.width, imageView.height)
 
         scaledBitmap?.let {
-            if(!isImageViewInUse(ImageRequest(imageUrl, imageView))) imageView.setImageBitmap(scaledBitmap)
+            if (!isImageViewInUse(ImageRequest(imageUrl, imageView))) imageView.setImageBitmap(
+                scaledBitmap
+            )
         }
     }
 
     inner class ImageRequest(var imgUrl: String, var imageView: ImageView)
+
     private fun isImageViewInUse(imageRequest: ImageRequest): Boolean {
         val tag = imageViewMap[imageRequest.imageView]
         return tag == null || tag != imageRequest.imgUrl
     }
 
-    private fun  scaleBitmapForLoad(bitmap: Bitmap?, width: Int, height: Int): Bitmap? {
+    private fun scaleBitmapForLoad(bitmap: Bitmap?, width: Int, height: Int): Bitmap? {
 
-        if(width == 0 || height == 0) return bitmap
+        if (width == 0 || height == 0) return bitmap
 
         val stream = ByteArrayOutputStream()
         bitmap?.compress(Bitmap.CompressFormat.JPEG, 100, stream)
         val inputStream = BufferedInputStream(ByteArrayInputStream(stream.toByteArray()))
 
         // Scale Bitmap to required ImageView Size
-        return scaleBitmap(inputStream,  width, height)
+        return scaleBitmap(inputStream, width, height)
     }
 
-    private fun scaleBitmap(inputStream: BufferedInputStream, width: Int, height: Int) : Bitmap? {
+    private fun scaleBitmap(inputStream: BufferedInputStream, width: Int, height: Int): Bitmap? {
         return BitmapFactory.Options().run {
             inputStream.mark(inputStream.available())
 
@@ -110,10 +117,15 @@ class MyImageLoader(context: Context) {
 
             inJustDecodeBounds = false
             inputStream.reset()
-            BitmapFactory.decodeStream(inputStream, null,  this)
+            BitmapFactory.decodeStream(inputStream, null, this)
         }
     }
-    private fun calculateInSampleSize(options: BitmapFactory.Options, reqWidth: Int, reqHeight: Int): Int {
+
+    private fun calculateInSampleSize(
+        options: BitmapFactory.Options,
+        reqWidth: Int,
+        reqHeight: Int
+    ): Int {
 
         val (height: Int, width: Int) = options.run { outHeight to outWidth }
         var inSampleSize = 1
@@ -132,12 +144,12 @@ class MyImageLoader(context: Context) {
 
         override fun run() {
 
-            if(isImageViewInUse(imageRequest)) return
+            if (isImageViewInUse(imageRequest)) return
 
             val bitmap = downloadBitmapFromURL(imageRequest.imgUrl)
             memoryCache.put(imageRequest.imgUrl, bitmap)
 
-            if(isImageViewInUse(imageRequest)) return
+            if (isImageViewInUse(imageRequest)) return
 
             val displayBitmap = ShowBitmap(imageRequest)
             handler.post(displayBitmap)
@@ -145,9 +157,14 @@ class MyImageLoader(context: Context) {
 
 
     }
+
     inner class ShowBitmap(private var imageRequest: ImageRequest) : Runnable {
         override fun run() {
-            if(!isImageViewInUse(imageRequest)) drawaImageOnView(imageRequest.imageView, isImageInCache(imageRequest.imgUrl), imageRequest.imgUrl)
+            if (!isImageViewInUse(imageRequest)) drawaImageOnView(
+                imageRequest.imageView,
+                isImageInCache(imageRequest.imgUrl),
+                imageRequest.imgUrl
+            )
         }
     }
 
@@ -160,6 +177,7 @@ class MyImageLoader(context: Context) {
     }
 
     private fun isImageInCache(imageUrl: String): Bitmap? = memoryCache.get(imageUrl)
+
     companion object {
 
         private lateinit var INSTANCE: MyImageLoader

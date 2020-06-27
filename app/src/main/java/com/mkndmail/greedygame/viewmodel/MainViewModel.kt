@@ -9,6 +9,10 @@ import com.mkndmail.greedygame.network.ApiService
 import com.mkndmail.greedygame.network.Status
 import kotlinx.coroutines.*
 
+/**
+ * Created by Mukund, mkndmail@gmail.com on 27, June, 2020
+ */
+
 class MainViewModel : ViewModel() {
     private val coroutineScope = CoroutineScope(Dispatchers.IO + SupervisorJob())
     private val apiService: ApiService by lazy {

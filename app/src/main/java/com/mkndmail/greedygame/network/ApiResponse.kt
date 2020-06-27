@@ -4,6 +4,10 @@ import android.os.Parcelable
 import com.squareup.moshi.Json
 import kotlinx.android.parcel.Parcelize
 
+/**
+ * Created by Mukund, mkndmail@gmail.com on 27, June, 2020
+ */
+
 data class ApiResponse(val kind: String, val data: ApiData)
 
 data class ApiData(

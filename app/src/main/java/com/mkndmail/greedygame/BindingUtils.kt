@@ -11,6 +11,12 @@ import com.mkndmail.greedygame.network.Children
 import com.mkndmail.greedygame.network.Status
 import com.mkndmail.myimageloader.MyImageLoader
 
+/**
+ * Created by Mukund, mkndmail@gmail.com on 27, June, 2020
+ */
+
+/*Sets the data to ImageAdapter */
+
 @BindingAdapter("imagesList", "imageAdapter")
 fun RecyclerView.setImages(
     imagesList: List<Children>?,
@@ -21,6 +27,7 @@ fun RecyclerView.setImages(
     }
 }
 
+/*Laod images from url into guven imageview*/
 @BindingAdapter("loadImage")
 fun ImageView.loadImage(urlImage: String?) {
     urlImage?.let { imageUrl ->
@@ -28,6 +35,7 @@ fun ImageView.loadImage(urlImage: String?) {
     }
 }
 
+//Show the progress bar loading status based on the condition
 @BindingAdapter("progressStatus")
 fun ProgressBar.setStatus(status: Status) {
     when (status) {

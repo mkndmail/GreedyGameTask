@@ -9,6 +9,10 @@ import com.mkndmail.greedygame.databinding.LayoutListImagesBinding
 import com.mkndmail.greedygame.network.Children
 import com.mkndmail.greedygame.network.ImageData
 
+/**
+ * Created by Mukund, mkndmail@gmail.com on 27, June, 2020
+ */
+
 class ImageAdapter(private val clickListener: ImageClickListner) :
     ListAdapter<Children, RecyclerView.ViewHolder>(ImageDiffCallBack()) {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {

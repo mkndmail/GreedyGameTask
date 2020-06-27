@@ -8,6 +8,9 @@ import com.mkndmail.greedygame.activity.MainActivity.Companion.IMAGE_DATA
 import com.mkndmail.greedygame.databinding.ActivityFullImageBinding
 import com.mkndmail.greedygame.network.ImageData
 
+/**
+ * Created by Mukund, mkndmail@gmail.com on 27, June, 2020
+ */
 class FullImageActivity : AppCompatActivity() {
     private lateinit var binding:ActivityFullImageBinding
     override fun onCreate(savedInstanceState: Bundle?) {

@@ -11,6 +11,10 @@ import com.mkndmail.greedygame.databinding.ActivityMainBinding
 import com.mkndmail.greedygame.viewmodel.MainViewModel
 import com.mkndmail.myimageloader.MyImageLoader
 
+
+/**
+ * Created by Mukund, mkndmail@gmail.com on 27, June, 2020
+ */
 class MainActivity : AppCompatActivity() {
     private lateinit var activityMainBinding: ActivityMainBinding
 
