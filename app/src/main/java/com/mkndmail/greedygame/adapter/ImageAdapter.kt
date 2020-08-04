@@ -47,6 +47,7 @@ class ImageViewHolder private constructor(val binding: LayoutListImagesBinding) 
     ) {
         binding.children = children
         binding.click = clickListener
+        binding.executePendingBindings()
     }
 }
 

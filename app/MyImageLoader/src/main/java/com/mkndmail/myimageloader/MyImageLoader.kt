@@ -77,6 +77,7 @@ class MyImageLoader(context: Context) {
         //Todo define image download process here
     }
 
+    @Synchronized
     private fun drawaImageOnView(imageView: ImageView, bitmap: Bitmap?, imageUrl: String) {
         val scaledBitmap = scaleBitmapForLoad(bitmap, imageView.width, imageView.height)
 
@@ -176,6 +177,7 @@ class MyImageLoader(context: Context) {
         return scaleBitmap(inputStream, screenWidth, screenHeight)
     }
 
+    @Synchronized
     private fun isImageInCache(imageUrl: String): Bitmap? = memoryCache.get(imageUrl)
 
     companion object {
